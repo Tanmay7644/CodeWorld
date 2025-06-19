@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from "../assets/Logo_W.png"
 const Navbar = () => {
   const navigate=useNavigate();
   return (
     <>
       <header className='navbar-header'>
         <nav className='navbar-nav'>
-          <button className="navbar-logo" onClick={()=>navigate('/')}>Logo</button>
+          <img src={logo} className="logo" alt="" onClick={()=>{navigate("/")}}></img>
           <ul className="navbar-ul">
             <li className="navbar-li">About</li>
             <li className="navbar-li">Contact</li>

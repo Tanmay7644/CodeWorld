@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import student from "./models/User.js"
+import {body,validationResult} from 'express-validator'
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -9,11 +10,27 @@ const port = 3000
 
 mongoose.connect("mongodb://localhost:27017/User")
 
-app.post('/register',(req,res)=>{
-    student.create(req.body)
-    .then(res.send("Data inserted"))
-    .catch(err=>console.log(err))
-})
+app.post('/register',
+    [
+        body('name',"Name must be at least 3 characters").isLength({min:3}),
+        body('email',"Enter a valid Email").isEmail(),
+        body('password',"Password must be at least 6 characters").isLength({min:6})
+    ],
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() });
+            return;
+        }
+        student.create({
+            name: req.body.name,
+            password: req.body.password,
+            email: req.body.email
+        })
+        .then(() => res.send("Data inserted"))
+        .catch(err => res.status(500).send("Error inserting data"));
+    }
+)
 
 app.post('/login',(req,res)=>{
     const {email,password}=req.body;
