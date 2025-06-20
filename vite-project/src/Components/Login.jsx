@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import React ,{useState}from 'react'
 import './Login.css'
 import axios from 'axios';
+import logo from "../assets/logo-login.png"
 const Login = () => {
   const [email,setEmail]=useState();
   const [password,setPassword]=useState();
@@ -44,7 +45,9 @@ const Login = () => {
       </div>
 
       <div className="toggle-box">
+        
         <div className="toggle-panel toggle-left">
+            <img src={logo} className="logo-login" alt="" ></img>
             <h1>Hello, Welcome!</h1>
             <p>Don't have an account?</p>
             <button className="btn register-btn"  onClick={handleRegister}>Register</button>

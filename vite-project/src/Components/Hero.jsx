@@ -6,7 +6,7 @@ const Hero = () => {
     <div className='hero-text'>
       <p>Empower Your Learning</p>
       <p>Access Lectures, Notes and Live Classes</p>
-      <button onClick={()=>{navigate('/login')}}>Start</button>
+      <button onClick={()=>{navigate('/code-editor')}}>Start</button>
     </div>
   )
 }

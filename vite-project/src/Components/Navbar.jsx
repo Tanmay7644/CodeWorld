@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from "../assets/Logo_W.png"
+import logo from "../assets/logo-2.png"
 const Navbar = () => {
   const navigate=useNavigate();
   return (
