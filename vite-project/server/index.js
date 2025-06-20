@@ -66,9 +66,11 @@ app.post('/code-editor',async (req,res)=>{
 
     try{
         const response=await axios.post("https://api.jdoodle.com/v1/execute",payLoad);
+        console.log("Response from JDoodle:", response.data);
         res.json(response.data);
     }
     catch(err){
+        console.error("Error executing code:", err);
         res.status(500).json({error:"Execution Failed",details:err.message});
     }
 })

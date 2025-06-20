@@ -278,11 +278,7 @@ form{
     filter: blur(2px);
  }
 
- .code-button{
-    height: 20px;
-    width: 30px;
-    background-color:pink;
- }
+
 
  /* Card CSS */
 .all-cards{
@@ -378,3 +374,69 @@ form{
     font-weight: 600;
     text-shadow: 0 0 4px rgb(107, 107, 107), 0 0 5px black;
 }
+
+
+
+/* Code Editor CSS */
+
+.editor{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 5px solid #767676;
+    /* border-radius: 10px; */
+}
+
+.code-editor-nav{
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg,#767676,#adadad);
+}
+.code-editor-nav select{
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.code-editor-nav select option{
+   background: #acabab;
+   border: none;
+   padding: 10px;
+   font-size: 16px;
+}
+.code-button{
+    background: linear-gradient(180deg,black,rgb(43, 43, 43));
+    color: white;
+    margin: 2px;
+    width: 70px;
+    border-radius: 7px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.code-button:hover{
+    transform: scale(1.04);
+}
+
+.editor-container {
+    width: 100%;
+    transition: height 0.3s;
+    min-height: 100px;
+    /* No fixed height here, it's set inline */
+    overflow: hidden;
+}
+.output {
+    overflow-y: auto;
+    transition: height 0.3s;
+    background: linear-gradient(180deg,#767676,#adadad);
+}
+.editor h1{
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: 5px;
+}
+
