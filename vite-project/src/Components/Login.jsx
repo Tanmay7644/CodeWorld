@@ -13,7 +13,7 @@ const Login = () => {
     .then(result=>{
       console.log(result);
       if(result.data==="Success"){
-        navigate('/');
+        navigate('/StudentHome');
       }
     })
     .catch(err=>console.log(err)); 
