@@ -8,7 +8,7 @@ const UploadLectures = () => {
     const [desc,setDesc]=useState("");
 
     const fileRef=useRef();
-
+    const navigate = useNavigate();
     const handleSubmit= async(e)=>{
         e.preventDefault();
         const file=fileRef.current.files[0];
@@ -20,12 +20,12 @@ const UploadLectures = () => {
         formData.append('topic',topic);
         formData.append('description',desc);
 
-        await axios.post("http://localhost:3000/upload/notes".formData,{
+        await axios.post("http://localhost:3000/upload/notes",formData,{
             headers:{ 'Content-Type': 'multipart/form-data' }
         });
 
         alert("Lecture Uploaded");
-        Navigate('/TeacherHome');
+        navigate('/TeacherHome');
 
     }
   return (
