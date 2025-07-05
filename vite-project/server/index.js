@@ -5,54 +5,67 @@ import student from "./models/User.js"
 import {body,validationResult} from 'express-validator'
 import dotenv from 'dotenv'
 import axios from 'axios'
+import bcrypt from 'bcryptjs'
+import jwt from "jsonwebtoken"
 dotenv.config();
 const app = express()
 app.use(express.json())
 app.use(cors())
 const port = 3000
 
+const JWT_SECRET = process.env.JWT_SECRET || "yoursecretkey";
+
 mongoose.connect("mongodb://localhost:27017/User")
 
-app.post('/register',
+app.post('/register', 
     [
         body('name',"Name must be at least 3 characters").isLength({min:3}),
         body('email',"Enter a valid Email").isEmail(),
         body('password',"Password must be at least 6 characters").isLength({min:6})
-    ],
-    (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
-            return;
-        }
-        student.create({
-            name: req.body.name,
-            password: req.body.password,
-            email: req.body.email
-        })
-        .then(() => res.send("Data inserted"))
-        .catch(err => res.status(500).send("Error inserting data"));
-    }
-)
+    ]
+    ,
+    async(req,res)=>{
+    const {name,email,password}=req.body;
+    const hash=await bcrypt.hash(password,10);
 
-app.post('/login',(req,res)=>{
+    try{
+        await student.create({name,email,password:hash,role:"student" });
+        res.json({status:"Registered"});
+    }
+    catch(err){
+        res.status(500).json({status:"Error",error:err.message})
+    }
+})
+
+app.post('/login', async (req,res)=>{
     const {email,password}=req.body;
-    student.findOne({email:email})
-    .then(user=>{
-        if(user){
-            if(user.password===password){
-                res.json("Success")
-            }
-            else{
-                res.json("Password is Incorrect!");
-            }
+
+    const user=await student.findOne({email});
+    if(!user){
+        return res.json({status:"No Record Existed"});
+    }
+
+    let matchPassword=0;
+    if(user.role==="teacher"){
+        if(user.password==password){
+            const token=jwt.sign({id:user._id,role:user.role,name:user.name,email:user.email},JWT_SECRET,{expiresIn:"1h"});
+            res.json({status:"Success",role:user.role,token});
         }
         else{
-            res.json("No Record Existed!");
+            return res.json({status: "Password is Incorrect"});
         }
-    })
-    
+    }
+    else{
+        matchPassword=await bcrypt.compare(password,user.password);
+        if(!matchPassword){
+            return res.json({status: "Password is Incorrect"});
+        }   
+        const token=jwt.sign({id:user._id,role:user.role,name:user.name,email:user.email},JWT_SECRET,{expiresIn:"1h"});
+        res.json({status:"Success",role:user.role,token});
+    }
+
 })
+
 
 app.post('/code-editor',async (req,res)=>{
     const {script,language,versionIndex}=req.body;

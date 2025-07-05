@@ -13,7 +13,7 @@ const Register = () => {
     e.preventDefault();
     axios.post('http://localhost:3000/register', { name, email, password })
       .then(result => {
-        if (result.data === "Data inserted") {
+        if (result.data.status === "Registered") {
           alert("Registration Successful");
           navigate('/login');
         }

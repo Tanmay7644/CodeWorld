@@ -9,11 +9,12 @@ const StudentNavbar = () => {
     setShowMenu(prev=>!prev);
   }
   const handleProfile=()=>{
-    alert("Go to Profile");
+    navigate('/profile');
     setShowMenu(false);
   }
   const handleLogout=()=>{
-    alert("Go to Logout");
+    localStorage.removeItem("token");
+    navigate('/');
     setShowMenu(false);
   }
   return (

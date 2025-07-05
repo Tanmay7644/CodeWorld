@@ -5,6 +5,9 @@ import Register from './Components/Register'
 import Home from './Components/Home'
 import CodeEditor from './Components/CodeEditor'
 import StudentHome from './Components/StudentHome'
+import TeacherHome from './Components/TeacherHome'
+import ProtectedRoute from './Components/ProtectedRoute'
+import Profile from './Components/Profile'
 function App() {
 
 
@@ -16,7 +19,23 @@ function App() {
         <Route path="/" element={<Home/>}></Route>
         <Route path="/login" element={<Login/>}/>
         <Route path='/register'element={<Register/>}/>
-        <Route path='/StudentHome' element={<StudentHome/>}></Route>
+        <Route path='/StudentHome' element={
+          <ProtectedRoute allowedRoles={["student"]}> 
+          <StudentHome/>
+        </ProtectedRoute>
+        }></Route>
+
+        <Route path='/TeacherHome' element={
+          <ProtectedRoute allowedRoles={["teacher"]}> 
+          <TeacherHome/>
+        </ProtectedRoute>
+        }></Route>
+
+        <Route path='/profile' element={
+            <ProtectedRoute allowedRoles={["student", "teacher"]}>
+              <Profile/>
+            </ProtectedRoute>
+          }/>
       </Routes>
       </BrowserRouter>
     </>

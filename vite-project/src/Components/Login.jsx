@@ -6,20 +6,30 @@ import logo from "../assets/logo-login.png"
 const Login = () => {
   const [email,setEmail]=useState();
   const [password,setPassword]=useState();
-
-  const handleLogin=(e)=>{
+  const navigate=useNavigate();
+  
+  const handleLogin= async (e)=>{
     e.preventDefault();
-    axios.post('http://localhost:3000/login',{email,password})
-    .then(result=>{
-      console.log(result);
-      if(result.data==="Success"){
-        navigate('/StudentHome');
+
+    try{
+      // we have sent the data to backend from here and collecting the response from backend
+      const res=await axios.post('http://localhost:3000/login',{email,password});
+      // structure of response => res ={status:"", role: "" }
+      if(res.data.status==="Success"){
+        localStorage.setItem("token",res.data.token);
+
+        if(res.data.role==="student") navigate('/StudentHome');
+        else if(res.data.role==="teacher") navigate('/TeacherHome');
       }
-    })
-    .catch(err=>console.log(err)); 
+      else{
+        alert(res.data.status);
+      }
+    }
+    catch(err){
+      alert("Login Failed");
+    }
   }
   
-  const navigate=useNavigate();
   const handleRegister=()=>{
     navigate('/register');
   }
