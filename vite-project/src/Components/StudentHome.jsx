@@ -3,9 +3,6 @@ import StudentNavbar from './StudentNavbar'
 import Footer from './Footer'
 import Line from "../assets/line-seperator.png"
 const StudentHome = () => {
-  const handleAnimationComplete = () => {
-    console.log('All letters have animated!');
-  };
   return (
     <div className='student-home'>
       <div className='student-home-background'></div>
@@ -20,13 +17,16 @@ const StudentHome = () => {
       </div>
       <div className='student-container'>
         <div className='container-1'>
-
+            <img src="" alt="" />
+            <button></button>
         </div>
         <div className='container-2' >
-            
+            <img src="" alt="" />
+            <button></button>
         </div>
         <div className='container-3'>
-
+            <img src="" alt="" />
+            <button></button>
         </div>
       </div>
 

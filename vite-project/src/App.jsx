@@ -8,6 +8,8 @@ import StudentHome from './Components/StudentHome'
 import TeacherHome from './Components/TeacherHome'
 import ProtectedRoute from './Components/ProtectedRoute'
 import Profile from './Components/Profile'
+import UploadLectures from './Components/UploadLectures'
+import UploadNotes from './Components/UploadNotes'
 function App() {
 
 
@@ -23,7 +25,7 @@ function App() {
           <ProtectedRoute allowedRoles={["student"]}> 
           <StudentHome/>
         </ProtectedRoute>
-        }></Route>
+        }/>
 
         <Route path='/TeacherHome' element={
           <ProtectedRoute allowedRoles={["teacher"]}> 
@@ -36,6 +38,19 @@ function App() {
               <Profile/>
             </ProtectedRoute>
           }/>
+        
+
+        <Route path='/uploadNotes' element={
+          <ProtectedRoute allowedRoles={["teacher"]}> 
+          <UploadNotes/>
+        </ProtectedRoute>
+        }/>
+
+        <Route path='/uploadLectures' element={
+          <ProtectedRoute allowedRoles={["teacher"]}> 
+          <UploadLectures/>
+        </ProtectedRoute>
+        }/>
       </Routes>
       </BrowserRouter>
     </>

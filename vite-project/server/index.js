@@ -7,6 +7,8 @@ import dotenv from 'dotenv'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken"
+import multer from 'multer'
+import path from 'path'
 dotenv.config();
 const app = express()
 app.use(express.json())
@@ -87,6 +89,31 @@ app.post('/code-editor',async (req,res)=>{
         res.status(500).json({error:"Execution Failed",details:err.message});
     }
 })
+
+
+// Set up storage for uploaded files
+const storage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'uploads/');
+    },
+    filename:(req,file,cb)=>{
+        cb(null,Date.now()+'-'+file.originalname);
+    }
+});
+
+const upload = multer({ storage });
+
+app.post('/upload/notes',upload.single('file'),(req,res)=>{
+    res.json({status:"Success",file:req.file.filename});
+})
+
+app.post('/upload/lectures',upload.single('file'),(req,res)=>{
+    res.json({status:"Success",file:req.file.filename});
+})
+
+// Serve uploaded files statically
+app.use('uploads',express.static('uploads'));
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
