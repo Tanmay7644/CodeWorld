@@ -10,9 +10,9 @@ import ProtectedRoute from './Components/ProtectedRoute'
 import Profile from './Components/Profile'
 import UploadLectures from './Components/UploadLectures'
 import UploadNotes from './Components/UploadNotes'
+import AccessNotes from './Components/AccessNotes'
+import AccessLectures from './Components/AccessLectures'
 function App() {
-
-
   return (
     <>
       <BrowserRouter>
@@ -51,6 +51,20 @@ function App() {
           <UploadLectures/>
         </ProtectedRoute>
         }/>
+
+        <Route path='/accessNotes' element={
+          <ProtectedRoute allowedRoles={["student"]}> 
+          <AccessNotes/>
+        </ProtectedRoute>
+        }/>
+
+        <Route path='/accessLectures' element={
+          <ProtectedRoute allowedRoles={["student"]}> 
+          <AccessLectures/>
+        </ProtectedRoute>
+        }/>
+
+          
       </Routes>
       </BrowserRouter>
     </>

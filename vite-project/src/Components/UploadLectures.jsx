@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react'
-
+import  {useNavigate} from 'react-router-dom'
 
 const UploadLectures = () => {
     const [subject,setSubject]=useState("");
@@ -20,7 +20,7 @@ const UploadLectures = () => {
         formData.append('topic',topic);
         formData.append('description',desc);
 
-        await axios.post("http://localhost:3000/upload/notes",formData,{
+        await axios.post("http://localhost:3000/upload/lectures",formData,{
             headers:{ 'Content-Type': 'multipart/form-data' }
         });
 

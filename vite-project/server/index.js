@@ -8,7 +8,10 @@ import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken"
 import multer from 'multer'
+import fs from 'fs'
 import path from 'path'
+import Note from './models/Note.js'
+import Lecture from './models/Lecture.js'
 dotenv.config();
 const app = express()
 app.use(express.json())
@@ -103,17 +106,57 @@ const storage=multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.post('/upload/notes',upload.single('file'),(req,res)=>{
-    res.json({status:"Success",file:req.file.filename});
-})
-
-app.post('/upload/lectures',upload.single('file'),(req,res)=>{
-    res.json({status:"Success",file:req.file.filename});
-})
 
 // Serve uploaded files statically
-app.use('uploads',express.static('uploads'));
+app.use('/uploads',express.static('uploads'));
 
+
+// this posting in databse is to store metadata because multer doesnt store metada
+app.post('/upload/notes',upload.single('file'),async (req,res)=>{
+    const {subject,topic,description}=req.body;
+    const filename=req.file.filename;
+
+    try{
+        const note=await Note.create({filename,subject,topic,description});
+        res.json({status:"Success",note});
+    }
+    catch (err){
+        res.status(500).json({ error: err.message });
+    }
+})
+
+
+app.post('/upload/lectures',upload.single('file'),async (req,res)=>{
+    const {subject,topic,description}=req.body;
+    const filename=req.file.filename;
+
+    try{
+        const lecture=await Lecture.create({filename,subject,topic,description});
+        res.json({status:"Success",lecture});
+    }
+    catch (err){
+        res.status(500).json({ error: err.message });
+    }
+})
+
+
+app.get('/notes', async (req, res) => {
+  try {
+    const notes = await Note.find().sort({ uploadedAt: -1 });
+    res.json(notes);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/lectures', async (req, res) => {
+  try {
+    const lectures = await Lecture.find().sort({ uploadedAt: -1 });
+    res.json(lectures);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

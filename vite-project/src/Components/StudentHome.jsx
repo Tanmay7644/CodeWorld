@@ -2,7 +2,15 @@ import React from 'react'
 import StudentNavbar from './StudentNavbar'
 import Footer from './Footer'
 import Line from "../assets/line-seperator.png"
+import { useNavigate } from 'react-router-dom'
 const StudentHome = () => {
+  const navigate = useNavigate();
+  const handleNotes = () => {
+    navigate('/accessNotes');
+  }
+  const handleLectures = () => {
+    navigate('/accessLectures');
+  }
   return (
     <div className='student-home'>
       <div className='student-home-background'></div>
@@ -17,16 +25,16 @@ const StudentHome = () => {
       </div>
       <div className='student-container'>
         <div className='container-1'>
-            <img src="" alt="" />
-            <button></button>
+            <h1>Access Notes</h1>
+            <button onClick={handleNotes}>Access Notes</button>
         </div>
         <div className='container-2' >
             <img src="" alt="" />
-            <button></button>
+            <button ></button>
         </div>
         <div className='container-3'>
-            <img src="" alt="" />
-            <button></button>
+            <h1>Access Lectures</h1>
+            <button onClick={handleLectures}>Access Lectures</button>
         </div>
       </div>
 
