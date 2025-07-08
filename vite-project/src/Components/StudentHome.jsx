@@ -3,6 +3,9 @@ import StudentNavbar from './StudentNavbar'
 import Footer from './Footer'
 import Line from "../assets/line-seperator.png"
 import { useNavigate } from 'react-router-dom'
+import notes from '../assets/notes.jpg'
+import codeeditor from '../assets/codeEditor.jpg'
+import lectures from '../assets/lectures.jpg'
 const StudentHome = () => {
   const navigate = useNavigate();
   const handleNotes = () => {
@@ -10,6 +13,9 @@ const StudentHome = () => {
   }
   const handleLectures = () => {
     navigate('/accessLectures');
+  }
+  const codeEditor = ()=>{
+    navigate('/code-editor');
   }
   return (
     <div className='student-home'>
@@ -26,14 +32,17 @@ const StudentHome = () => {
       <div className='student-container'>
         <div className='container-1'>
             <h1>Access Notes</h1>
+            <img src={notes} alt="" />
             <button onClick={handleNotes}>Access Notes</button>
         </div>
         <div className='container-2' >
-            <img src="" alt="" />
-            <button ></button>
+            <h1>Code Editor</h1>
+            <img src={codeeditor} alt="" />
+            <button onclick={codeEditor}>Code</button>
         </div>
         <div className='container-3'>
             <h1>Access Lectures</h1>
+            <img src={lectures} alt="" />
             <button onClick={handleLectures}>Access Lectures</button>
         </div>
       </div>

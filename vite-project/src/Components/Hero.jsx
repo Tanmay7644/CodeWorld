@@ -45,7 +45,7 @@ const Hero = () => {
 
         {showBtn && (
           <div ref={btnRef}> 
-            <button className="start-button" onClick={()=>{navigate("/code-editor")}} >Start</button>
+            <button className="start-button" onClick={()=>{navigate("/login")}} >Start</button>
           </div>
         )}
       

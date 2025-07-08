@@ -10,7 +10,7 @@ const AccessNotes = () => {
   },[])
   return (
     <div className="notes-container">
-    <h1>Available Notes</h1>
+    <h1 className='headLine'>Available Notes</h1>
     <ul className="notes-list">
       {notes.map(note => (
         <li key={note._id} className="note-card">

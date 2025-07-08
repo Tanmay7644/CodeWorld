@@ -9,13 +9,16 @@ const AccessLectures = () => {
     .catch(()=>setLectures([]));
   })
   return (
-    <div>
-      <h1>Available Lectures</h1>
-      <ul>
-        {lectures.map(file=>(
-          <li key={file}>
-            <a href={`http://localhost:3000/uploads/${file}`} target="_blank" rel="noopener noreferrer">
-              {file}
+    <div className="notes-container">
+      <h1 className='headLine'>Available Lectures</h1>
+      <ul className="notes-list" >
+        {lectures.map(lecture=>(
+          <li key={lecture._id} className="note-card">
+            <strong>Subject:</strong> {lecture.subject} <br />
+            <strong>Topic:</strong> {lecture.topic} <br />
+            <strong>Description:</strong> {lecture.description} <br />
+            <a href={`http://localhost:3000/uploads/${lecture.filename}`} target="_blank" rel="noopener noreferrer">
+              📄 Download/View File
             </a>
           </li>
         ))}

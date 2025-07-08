@@ -17,7 +17,6 @@ function App() {
     <>
       <BrowserRouter>
       <Routes>
-        <Route path="code-editor" element={<CodeEditor/>}></Route>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/login" element={<Login/>}/>
         <Route path='/register'element={<Register/>}/>
@@ -39,7 +38,12 @@ function App() {
             </ProtectedRoute>
           }/>
         
-
+          <Route path='/code-editor' element={
+            <ProtectedRoute allowedRoles={["student", "teacher"]}>
+              <CodeEditor/>
+            </ProtectedRoute>
+          }/>
+          
         <Route path='/uploadNotes' element={
           <ProtectedRoute allowedRoles={["teacher"]}> 
           <UploadNotes/>
