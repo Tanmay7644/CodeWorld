@@ -38,7 +38,7 @@ const StudentHome = () => {
         <div className='container-2' >
             <h1>Code Editor</h1>
             <img src={codeeditor} alt="" />
-            <button onclick={codeEditor}>Code</button>
+            <button onClick={codeEditor}>Code</button>
         </div>
         <div className='container-3'>
             <h1>Access Lectures</h1>
