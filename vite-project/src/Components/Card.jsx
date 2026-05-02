@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Card = (props) => {
+const FCard = (props) => {
   return (
     <div className='card' onClick={()=>{alert("To try this feature you need to log in!")}}>
         <img src={props.image} alt="" />
@@ -9,4 +9,4 @@ const Card = (props) => {
   )
 }
 
-export default Card
+export default FCard;

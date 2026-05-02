@@ -1,17 +1,17 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
-import student from "./models/User.js"
-import {body,validationResult} from 'express-validator'
+import student from "./models/User.js"              // student dataset
+import {body} from 'express-validator'              // it is a middleware that is used to validate the data that is being sent to the backend
 import dotenv from 'dotenv'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken"
 import multer from 'multer'
-import fs from 'fs'
-import path from 'path'
 import Note from './models/Note.js'
 import Lecture from './models/Lecture.js'
+import { GoogleGenerativeAI } from "@google/generative-ai"
+import Groq from 'groq-sdk'
 dotenv.config();
 const app = express()
 app.use(express.json())
@@ -68,7 +68,6 @@ app.post('/login', async (req,res)=>{
         const token=jwt.sign({id:user._id,role:user.role,name:user.name,email:user.email},JWT_SECRET,{expiresIn:"1h"});
         res.json({status:"Success",role:user.role,token});
     }
-
 })
 
 app.post('/code-editor',async (req,res)=>{
@@ -108,6 +107,8 @@ const upload = multer({ storage });
 
 // Serve uploaded files statically
 app.use('/uploads',express.static('uploads'));
+// Makes files accessible via URL like http://localhost:3000/uploads/filename.pdf
+// Without this, files are saved but cannot be accessed from browser
 
 
 // this posting in databse is to store metadata because multer doesnt store metada
@@ -154,6 +155,82 @@ app.get('/lectures', async (req, res) => {
     res.json(lectures);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+
+// npm install @google/generative-ai
+
+
+// app.post('/ai-assist', async (req, res) => {
+//   const { messages } = req.body;
+  
+//   try {
+//     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+//     // const model = genAI.getGenerativeModel({ 
+//     //   model: "gemini-1.5-flash",
+//     //   systemInstruction: "You are a concise coding assistant inside a code editor. Help debug, explain, and suggest code. The editor supports Python 3, Java, C++17, and C."
+//     // });
+
+//     const model = genAI.getGenerativeModel({ 
+//         model: "gemini-2.0-flash",  // 👈 change this
+//         systemInstruction: "You are a concise coding assistant inside a code editor. Help debug, explain, and suggest code. The editor supports Python 3, Java, C++17, and C."
+//     });
+
+//     // Remove first assistant greeting + filter to only user/model pairs
+//     // Gemini needs history to start with 'user' and alternate properly
+//     const allMessages = messages.filter(m => 
+//       !(m.role === 'assistant' && messages.indexOf(m) === 0)  // remove opening greeting
+//     );
+
+//     // Last message is what we're sending now
+//     const lastMsg = allMessages[allMessages.length - 1].content;
+    
+//     // Everything before last message is history
+//     const history = allMessages.slice(0, -1).map(m => ({
+//       role: m.role === 'assistant' ? 'model' : 'user',
+//       parts: [{ text: m.content }]
+//     }));
+
+//     const chat = model.startChat({ history });
+//     const result = await chat.sendMessage(lastMsg);
+//     res.json({ reply: result.response.text() });
+
+//   } catch (err) {
+//     console.error("Gemini Error:", err);
+//     res.status(500).json({ error: "AI request failed", details: err.message });
+//   }
+// });
+
+
+app.post('/ai-assist', async (req, res) => {
+  const { messages } = req.body;
+
+  try {
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY});
+
+    // Remove the first assistant greeting message
+    const filtered = messages.filter((m, i) => 
+      !(i === 0 && m.role === 'assistant')
+    );
+
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        { 
+          role: "system", 
+          content: "You are a concise coding assistant inside a code editor. Help debug, explain, and suggest code. The editor supports Python 3, Java, C++17, and C." 
+        },
+        ...filtered
+      ],
+      max_tokens: 1024,
+    });
+
+    res.json({ reply: completion.choices[0].message.content });
+
+  } catch (err) {
+    console.error("Groq Error:", err);
+    res.status(500).json({ error: "AI request failed", details: err.message });
   }
 });
 

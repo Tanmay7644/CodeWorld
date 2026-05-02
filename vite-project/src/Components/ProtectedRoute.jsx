@@ -1,6 +1,7 @@
-import React from 'react'
 import { Navigate } from 'react-router-dom'
-const ProtectedRoute = ({children,allowedRoles}) => {
+const ProtectedRoute = ({children,allowedRoles}) => {   
+    // allowedRoles is an array of roles that are allowed to access the route
+    // children is the component that is being protected
     const token=localStorage.getItem("token");
 
     if(!token){

@@ -8,7 +8,6 @@ import React, {
   useRef,
 } from "react";
 import gsap from "gsap";
-// import "./CardSwap.css";
 
 export const Card = forwardRef(
   ({ customClass, ...rest }, ref) => (
