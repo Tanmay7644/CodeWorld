@@ -20,7 +20,7 @@ const port = 3000
 
 const JWT_SECRET = process.env.JWT_SECRET || "yoursecretkey";
 
-mongoose.connect("mongodb://localhost:27017/User")
+mongoose.connect(process.env.MONGODB_URI)
 
 app.post('/register', 
     [
@@ -215,7 +215,7 @@ app.post('/ai-assist', async (req, res) => {
     );
 
     const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: [
         { 
           role: "system", 
