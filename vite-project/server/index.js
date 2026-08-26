@@ -136,7 +136,7 @@ app.post('/upload/lectures',upload.single('file'),async (req,res)=>{
     }
     catch (err){
         res.status(500).json({ error: err.message });
-    }
+    }8
 })
 
 
