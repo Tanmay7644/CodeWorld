@@ -1,8 +1,4 @@
-// ── Card Illustrations ────────────────────────────────────────────────
-// Drop-in SVG illustrations for TeacherHome cards.
-// Usage: import { NotesIllustration, CodeIllustration, LectureIllustration } from './CardIllustrations'
-// Then use as: img: <NotesIllustration /> in your features array,
-// and replace <img> tags in TeacherHome with {feature.img}
+
 
 export const NotesIllustration = () => (
   <svg viewBox="0 0 210 132" fill="none" xmlns="http://www.w3.org/2000/svg"

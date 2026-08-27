@@ -1,33 +1,4 @@
-// import { useEffect,useState } from "react"
-// import axios from "axios"
 
-// const AccessNotes = () => {
-//   const [notes,setNotes]=useState([]);
-//   useEffect(()=>{
-//     axios.get('http://localhost:3000/notes')
-//     .then(res=> setNotes(res.data))
-//     .catch(err=>setNotes([]));
-//   },[])
-//   return (
-//     <div className="notes-container">
-//     <h1 className='headLine'>Available Notes</h1>
-//     <ul className="notes-list">
-//       {notes.map(note => (
-//         <li key={note._id} className="note-card">
-//           <strong>Subject:</strong> {note.subject} <br />
-//           <strong>Topic:</strong> {note.topic} <br />
-//           <strong>Description:</strong> {note.description} <br />
-//           <a href={`http://localhost:3000/uploads/${note.filename}`} target="_blank" rel="noopener noreferrer">
-//             📄 Download/View File
-//           </a>
-//         </li>
-//       ))}
-//     </ul>
-//   </div>
-//   )
-// }
-
-// export default AccessNotes
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -54,7 +25,7 @@ const AccessNotes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/notes')
+    axios.get(`${import.meta.env.VITE_API_URL}/notes`)
       .then(res => setNotes(res.data))
       .catch(() => setNotes([]))
       .finally(() => setLoading(false));
@@ -115,7 +86,8 @@ const AccessNotes = () => {
                   <h2 className="al-card-topic">{note.topic}</h2>
                   <p className="al-card-desc">{note.description}</p>
                   <a
-                    href={`http://localhost:3000/uploads/${note.filename}`}
+                    // href={`${import.meta.env.VITE_API_URL}/uploads/${note.filename}`}
+                    href={note.filename}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="al-card-btn"
