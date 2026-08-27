@@ -87,7 +87,7 @@ const Register = () => {
     e.preventDefault()
     setLoading(true)
     try {
-      const result = await axios.post('http://localhost:3000/register', { name, email, password })
+      const result = await axios.post(`${import.meta.env.VITE_API_URL}/register`, { name, email, password })
       if (result.data.status === "Registered") {
         alert("Registration Successful")
         navigate('/login')

@@ -78,9 +78,9 @@ const UploadNotes = () => {
       formData.append('topic', topic);
       formData.append('description', desc);
 
-      await axios.post("http://localhost:3000/upload/notes", formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      await axios.post(`${import.meta.env.VITE_API_URL}/upload/notes`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
 
       alert("Notes Uploaded");
       navigate('/TeacherHome');

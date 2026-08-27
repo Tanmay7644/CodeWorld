@@ -49,13 +49,19 @@ app.post('/login', async (req,res)=>{
         return res.json({status:"No Record Existed"});
     }
 
-    let matchPassword=0;
-        matchPassword=await bcrypt.compare(password,user.password);
-        if(!matchPassword){
-            return res.json({status: "Password is Incorrect"});
-        }   
-        const token=jwt.sign({id:user._id,role:user.role,name:user.name,email:user.email},JWT_SECRET,{expiresIn:"1h"});
-})
+    const matchPassword = await bcrypt.compare(password, user.password);
+    if(!matchPassword){
+        return res.json({status: "Password is Incorrect"});
+    }
+
+    const token = jwt.sign(
+        {id:user._id, role:user.role, name:user.name, email:user.email},
+        JWT_SECRET,
+        {expiresIn:"1h"}
+    );
+
+    res.json({ status: "Success", token, role: user.role, name: user.name });
+});
 
 app.post('/code-editor',async (req,res)=>{
     const {script,language,versionIndex}=req.body;
@@ -94,8 +100,6 @@ const upload = multer({ storage });
 
 // Serve uploaded files statically
 app.use('/uploads',express.static('uploads'));
-// Makes files accessible via URL like http://localhost:3000/uploads/filename.pdf
-// Without this, files are saved but cannot be accessed from browser
 
 
 // this posting in databse is to store metadata because multer doesnt store metada
