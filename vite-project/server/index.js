@@ -51,23 +51,11 @@ app.post('/login', async (req,res)=>{
     }
 
     let matchPassword=0;
-    if(user.role==="teacher"){
-        if(user.password==password){
-            const token=jwt.sign({id:user._id,role:user.role,name:user.name,email:user.email},JWT_SECRET,{expiresIn:"1h"});
-            res.json({status:"Success",role:user.role,token});
-        }
-        else{
-            return res.json({status: "Password is Incorrect"});
-        }
-    }
-    else{
         matchPassword=await bcrypt.compare(password,user.password);
         if(!matchPassword){
             return res.json({status: "Password is Incorrect"});
         }   
         const token=jwt.sign({id:user._id,role:user.role,name:user.name,email:user.email},JWT_SECRET,{expiresIn:"1h"});
-        res.json({status:"Success",role:user.role,token});
-    }
 })
 
 app.post('/code-editor',async (req,res)=>{
@@ -157,50 +145,6 @@ app.get('/lectures', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-
-// npm install @google/generative-ai
-
-
-// app.post('/ai-assist', async (req, res) => {
-//   const { messages } = req.body;
-  
-//   try {
-//     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-//     // const model = genAI.getGenerativeModel({ 
-//     //   model: "gemini-1.5-flash",
-//     //   systemInstruction: "You are a concise coding assistant inside a code editor. Help debug, explain, and suggest code. The editor supports Python 3, Java, C++17, and C."
-//     // });
-
-//     const model = genAI.getGenerativeModel({ 
-//         model: "gemini-2.0-flash",  // 👈 change this
-//         systemInstruction: "You are a concise coding assistant inside a code editor. Help debug, explain, and suggest code. The editor supports Python 3, Java, C++17, and C."
-//     });
-
-//     // Remove first assistant greeting + filter to only user/model pairs
-//     // Gemini needs history to start with 'user' and alternate properly
-//     const allMessages = messages.filter(m => 
-//       !(m.role === 'assistant' && messages.indexOf(m) === 0)  // remove opening greeting
-//     );
-
-//     // Last message is what we're sending now
-//     const lastMsg = allMessages[allMessages.length - 1].content;
-    
-//     // Everything before last message is history
-//     const history = allMessages.slice(0, -1).map(m => ({
-//       role: m.role === 'assistant' ? 'model' : 'user',
-//       parts: [{ text: m.content }]
-//     }));
-
-//     const chat = model.startChat({ history });
-//     const result = await chat.sendMessage(lastMsg);
-//     res.json({ reply: result.response.text() });
-
-//   } catch (err) {
-//     console.error("Gemini Error:", err);
-//     res.status(500).json({ error: "AI request failed", details: err.message });
-//   }
-// });
 
 
 app.post('/ai-assist', async (req, res) => {
