@@ -10,7 +10,6 @@ import jwt from "jsonwebtoken"
 import multer from 'multer'
 import Note from './models/Note.js'
 import Lecture from './models/Lecture.js'
-import { GoogleGenerativeAI } from "@google/generative-ai"
 import Groq from 'groq-sdk'
 dotenv.config();
 const app = express()
