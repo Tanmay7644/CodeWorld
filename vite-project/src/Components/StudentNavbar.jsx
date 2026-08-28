@@ -55,13 +55,12 @@ const StudentNavbar = () => {
                 <img src={user} className="sn-dd-avatar" alt="" />
                 <div>
                   <p className="sn-dd-name">My Account</p>
-                  {/* <p className="sn-dd-role">Teacher</p> */}
                 </div>
               </div>
               <div className="sn-dropdown-divider" />
               <button
                 className="sn-dd-item"
-                style={{cursor:"pointer"}}
+                // style={{cursor:"pointer"}}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleProfile();
@@ -76,9 +75,10 @@ const StudentNavbar = () => {
               </button>
               <button
                 className="sn-dd-item"
+                // style={{cursor:"pointer"}}
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleProfile();
+                  handleLogout();
                 }}
                 role="menuitem"
               >

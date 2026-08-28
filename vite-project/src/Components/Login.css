@@ -10,10 +10,6 @@
 }
 
 
-/* ── Fonts ───────────────────────────────────────────────────────────── */
-/* @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@600;700&display=swap');  */
-
 /* ── Tokens ──────────────────────────────────────────────────────────── */
 :root {
   --lg-bg:        #07080f;
@@ -383,7 +379,7 @@
 /* Navbar CSS */
 
 /* ── Fonts ───────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@500;600;700&display=swap'); */
  
 /* ── Tokens ──────────────────────────────────────────────────────────── */
 :root {
@@ -410,6 +406,7 @@
   color: var(--lp-white);
   font-family: 'DM Sans', sans-serif;
   overflow-x: hidden;
+  /* overflow-y: hidden; */
   display: flex;
   flex-direction: column;
 }
@@ -646,7 +643,7 @@
 
 
 /* ─── Google Font import ─────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap'); */
 
 /* ─── Design tokens ──────────────────────────────────────────────────── */
 :root {
@@ -964,7 +961,7 @@
 
 
 /* ── Fonts ───────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap'); */
 
 /* ── Navbar shell ────────────────────────────────────────────────────── */
 .sn-bar {
@@ -1124,7 +1121,7 @@
   -webkit-backdrop-filter: blur(24px);
   overflow: hidden;
   animation: ddSlide 0.18s cubic-bezier(0.22,1,0.36,1) both;
-  z-index: 200;
+  z-index: 100000;
 }
 
 @keyframes ddSlide {
@@ -1165,6 +1162,7 @@
 }
 
 .sn-dropdown-divider {
+  /* position: absolute; */
   height: 1px;
   background: rgba(255,255,255,0.06);
   margin: 0 10px;
@@ -1562,7 +1560,7 @@
   .lp-stats { gap: 20px; }
 }
 /* ── Fonts ───────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap'); */
 
 /* ── Tokens ──────────────────────────────────────────────────────────── */
 :root {
@@ -1639,7 +1637,7 @@
 }
 
 /* ── All content above overlays ──────────────────────────────────────── */
-.th-root > *:not(.th-orb):not(.th-noise) { position: relative; z-index: 2; }
+.th-root > *:not(.th-orb):not(.th-noise):not(.sn-bar) { position: relative; z-index: 2; }
 
 /* ── Hero ────────────────────────────────────────────────────────────── */
 .th-hero {
@@ -1650,6 +1648,7 @@
   text-align: center;
   padding: 18px 24px 10px;
   animation: fadeUp 0.7s ease both;
+  position: relative;
 }
 
 @keyframes fadeUp {
@@ -2218,7 +2217,7 @@
 
 
 /* ── Fonts ───────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@500;600&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@500;600&display=swap'); */
 
 /* ── Tokens ──────────────────────────────────────────────────────────── */
 :root {
